@@ -25,11 +25,14 @@ public class Main {
      */
     public static void main(String[] args) throws SQLException {
 
-        Empregado empregado = new EmpregadoDAO().obter(2); // buscando betito
-        Projeto projeto = new ProjetoDAO().obter(1); // buscando Projeto 1
+//        Empregado empregado = new EmpregadoDAO().obter(2); // buscando betito
+//        Projeto projeto = new ProjetoDAO().obter(1); // buscando Projeto 1
 
 //        a ideia eh remover o betito do projeto 1
-        boolean resultado = new ProjetoDAO().removerEmpregado(projeto, empregado);
+//        boolean resultado = new ProjetoDAO().removerEmpregado(projeto, empregado);
+
+
+        // agora o projeto 3 (sem empregados relacionados) tb aparece no listar() do ProjetoDAO
         ProjetoDAO projetoDAO = new ProjetoDAO();
         ArrayList<Projeto> vetProjeto = projetoDAO.listar();
         for (int i = 0; i < vetProjeto.size(); i++) {

@@ -29,7 +29,7 @@ public class ConexaoPostgreSQL {
     public Connection getConexao()  {
         String url = "jdbc:postgresql://"+this.host+":"+this.port+"/"+this.dbname;        
         try {
-            System.out.println("ok");
+//            System.out.println("ok");
             return DriverManager.getConnection(url, this.username, this.password);
         } catch (SQLException ex) {
             System.out.println("deu ruim!");

@@ -15,27 +15,32 @@ import negocio.Empregado;
  */
 public class ProjetoDAO {
     
+//    A ideia eh refatorar o listar pois do jeito que está somente projetos com empregados serão listados
+    
     public ArrayList<Projeto> listar() throws SQLException{
         ArrayList<Projeto> vetProjeto = new ArrayList<>();        
 //        coloquei um order by projeto.nome para listar os projetos em ordem
-        String sql = "SELECT projeto.nome as projeto_nome, empregado.nome as empregado_nome, * FROM empregado  inner join empregado_projeto on (empregado.id = empregado_projeto.empregado_id)  inner join projeto on (projeto.id = empregado_projeto.projeto_id) order by projeto.nome ";       
+        String sql = "SELECT projeto.nome as projeto_nome, empregado.nome as empregado_nome, * FROM empregado inner join empregado_projeto on (empregado.id = empregado_projeto.empregado_id) right join projeto on (projeto.id = empregado_projeto.projeto_id) order by projeto.nome ";       
         Connection conexao = new ConexaoPostgreSQL().getConexao();
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         int projeto_id = 0;
-        Projeto projeto = new Projeto();     
+        Projeto projeto = null;     
         while (rs.next()){ 
-            if (projeto_id == 0 || projeto_id != rs.getInt("projeto_id")) {
-                vetProjeto.add(projeto);
+            if (/*projeto_id == 0 ||*/ projeto_id != rs.getInt("projeto_id")) {                
                 projeto = new Projeto();                
+                vetProjeto.add(projeto);
             } 
             projeto.setId(rs.getInt("projeto_id"));
             projeto.setNome(rs.getString("projeto_nome"));
             projeto_id = rs.getInt("projeto_id");
-            projeto.getVetFuncionario().add(new Empregado(rs.getInt("empregado_id"), rs.getString("empregado_nome")));
+            if (rs.getInt("empregado_id") > 0) {
+                projeto.getVetFuncionario().add(new Empregado(rs.getInt("empregado_id"), rs.getString("empregado_nome")));
+            }
         }     
-        vetProjeto.remove(0);
-        vetProjeto.add(projeto);
+        //        removi a "gambiarra" que estava heheheh
+//        vetProjeto.remove(0);
+//        vetProjeto.add(projeto);
         preparedStatement.close();
         conexao.close();
         return vetProjeto;
