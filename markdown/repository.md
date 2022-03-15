@@ -120,9 +120,9 @@ Geralmente, cada método de um DAO executa uma única operação de leitura ou e
 ### Onde eles se parecem
 
 
-A confusão começa porque DAO quanto Repository abstraem de alguma forma o acesso aos dados, embora, como vimos acima, eles tem níveis completamente diferentes de abstração.
+A confusão começa porque **DAO** quanto **Repository** abstraem de alguma forma o acesso aos dados, embora, como vimos acima, eles tem níveis completamente diferentes de abstração.
 
-Outro problema é que algumas das operações (métodos) de DAOs e Repositórios são comuns e, dependendo da implementação, não tem diferença alguma. Parte disso é pela implementação incorreta dos padrões. Outra parte é porque nem sempre é possível seguir o modelo em sua completude, por exemplo quando a abstração em forma de uma coleção penaliza o desempenho de tal forma que um repositório precisa implementar um método de mais baixo nível para tornar uma funcionalidade viável.
+Outro problema é que algumas das operações (métodos) de **DAOs** e **Repositórios** são comuns e, dependendo da implementação, não tem diferença alguma. Parte disso é pela implementação incorreta dos padrões. Outra parte é porque nem sempre é possível seguir o modelo em sua completude, por exemplo quando a abstração em forma de uma coleção penaliza o desempenho de tal forma que um repositório precisa implementar um método de mais baixo nível para tornar uma funcionalidade viável.
 
 ### Onde divergem
 
