@@ -60,7 +60,7 @@ Os *Repositórios* pertencem ao modelo da aplicação, são parte da camada de n
 Um Repositório implementa parte das regras de negócio no que se refere à composição das entidades. Ele é fortemente vinculado ao dominío da aplicação e este é um reflexo direto das regras de negócio, pois ele abstrai armazenamento e consulta de um ou mais entidades de domínio.
 Entretanto, não podemos confundir isso com as regras de negócio no sentido de processamento das informações. Um repositório não deve incluir as regras de negócio no sentido de tomar decisões, aplicar algoritmos de transformação dos dados ou prover serviços diretamente a outras camadas ou módulos da aplicação. Mapear entidades de domínio e prover as funcionalidades da aplicação são responsabilidades distintas.
 
-Um **Repositório** fica entre as regras de negócio e a camada de persistência:
+Um **Repositório** fica entre as regras de **negócio** (domínio) e a camada de **persistência** (responsável pela infra-estrutura):
 
 1. Ele provê uma interface para as regras de negócio onde os objetos são acessados como em uma coleção
 
