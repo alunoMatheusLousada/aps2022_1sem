@@ -68,16 +68,6 @@ Um repositório fica entre as regras de negócio e a camada de persistência:
 
 Portanto um repositório pode, inclusive, fazer uso de um ou mais DAOs.
 
-## Repository vs DAO 
-
-
-**DAO** e **Repository** são dois padrões de projetos importantes, cujos propósitos tem uma pequena área de intersecção. Porém, como veremos abaixo, eles difere, tanto em seus objetos, quanto em sua origem e implementação.
-
-**DAOs** lidam diretamente com a fonte de dados e abstraem as operações realizadas nela. **Repositórios** provêm uma interface para tratar o armazenamento e recuperação de entidades do domínio como uma coleção.
-
-Um **Repositório** está vinculado **à regra de negócio da aplicação** e está associado ao agregado dos seus objetos de negócio e retorna objetos de domínio que representam esses dados. Já o **DAO** (*Data Access Object*) a princípio tem o seu escopo limitado na captura e persistência dos dados de um objeto que representa um registro da base de dados. <!--, consequentemente, ele transmite apenas o mundo físico relacional da base de dados e **não representa o mini-mundo real do negócio da sua aplicação.**-->
-
-A confusão acontece porque na maioria dos projetos toda persistência e acesso a dados é feita através de um, e apenas um, banco de dados. E, mais ainda, os frameworks atuais abstraem e traduzem os objetos em relacionamentos de forma tão simples que o DAO simplesmente passa ao framework o que recebe e retorna o resultado.
 
 ## Estrutura
 
@@ -100,10 +90,23 @@ Obs: Neste exemplo, além do padrão Strategy existe o padrão Query Object (ou 
 <!-- E pode-se ainda criar um repositório quando for preciso antes de um DAO. 
 Esta forma parece um pouco mais complexo, mas é até mais simples --> 
 
-## DAO
+
+## Repository vs DAO 
+
+
+**DAO** e **Repository** são dois padrões de projetos importantes, cujos propósitos tem uma pequena área de intersecção. Porém, como veremos abaixo, eles difere, tanto em seus objetos, quanto em sua origem e implementação.
+
+**DAOs** lidam diretamente com a fonte de dados e abstraem as operações realizadas nela. **Repositórios** provêm uma interface para tratar o armazenamento e recuperação de entidades do domínio como uma coleção.
+
+Um **Repositório** está vinculado **à regra de negócio da aplicação** e está associado ao agregado dos seus objetos de negócio e retorna objetos de domínio que representam esses dados. Já o **DAO** (*Data Access Object*) a princípio tem o seu escopo limitado na captura e persistência dos dados de um objeto que representa um registro da base de dados. <!--, consequentemente, ele transmite apenas o mundo físico relacional da base de dados e **não representa o mini-mundo real do negócio da sua aplicação.**-->
+
+O padrão Repository tem o objetivo de dar apoio ao modelo de domínio fornecendo persistência. Ao contrário do DAO, que é um objeto de infra-estrutura da aplicação e faz parte da camada de persistência, o Repository faz parte do modelo de domínio que é parte da camada de negócios.
+
+A confusão acontece porque na maioria dos projetos toda persistência e acesso a dados é feita através de um, e apenas um, banco de dados. E, mais ainda, os frameworks atuais abstraem e traduzem os objetos em relacionamentos de forma tão simples que o DAO simplesmente passa ao framework o que recebe e retorna o resultado.
+
+### DAO
 
 Um *Data Access Object* é um objeto que provê uma interface abstraindo um banco de ados ou algum outro mecanismo de persistência externo à aplicação.
-
 
 Objetivos:
 
@@ -113,7 +116,7 @@ Objetivos:
 
 Geralmente, cada método de um DAO executa uma única operação de leitura ou escrita no banco de dados.
 
-## Quando usar os padrões
+### Quando usar os padrões
 
 O uso de DAOs é praticamente uma necessidade se você não usa frameworks ORMs, mesmo que você use outra nomeclatura, afinal você precisa de um lugar para colocar o código SQL.
 
@@ -123,18 +126,17 @@ Repositórios, por outro lado, são interessantes para aplicações um pouco mai
 Como já descrito acima, quando se trabalha com um framework ORM, faz sentido criar repositórios para abstrair o código específico do framework. 
 -->
 
-## Onde eles se parecem
+### Onde eles se parecem
 
 
 A confusão começa porque DAO quanto Repository abstraem de alguma forma o acesso aos dados, embora, como vimos acima, eles tem níveis completamente diferentes de abstração.
 
 Outro problema é que algumas das operações (métodos) de DAOs e Repositórios são comuns e, dependendo da implementação, não tem diferença alguma. Parte disso é pela implementação incorreta dos padrões. Outra parte é porque nem sempre é possível seguir o modelo em sua completude, por exemplo quando a abstração em forma de uma coleção penaliza o desempenho de tal forma que um repositório precisa implementar um método de mais baixo nível para tornar uma funcionalidade viável.
 
-## Onde divergem
+### Onde divergem
 
 Um ponto importantíssimo para entender que a diferença não é apenas acidental é entender a origem dos padrões. 
 <!--Enquanto DAO foi pensado principalmente para abstrair fontes de dados genéricas, o contexto em que Repository foi concebido -->
-
 
 DAOs podem persistir e recuperar objetos ou, em sistemas mais simples, das próprias entidades do sistema. Repositórios sempre fazem referência a um entidade de domínio da aplicação, Claro que você pode estender o conceito para outras coisas, mas não deve ser a norma.
 
@@ -146,6 +148,7 @@ DAOs acessam diretamente a fonte de dados. Repositórios geralmente usam algum o
 
 O Repository é uma camada de negócio da aplicação, responsável por manter e persistir os objetos de Modelo, enquanto isto não envolver a infra. Quando tratar de infra, esse trabalho é delegado ao DAO ou diretamente ao framework, caso este seja bem abstraído.
 
+O problema é que as pessoas confundem esses dois conceitos porque realmente são bem parecidos. Na maioria dos casos você irá precisar dos dois, porque o modelo de domínio fará buscas por objetos em um Repository que por sua vez delegará para o DAO, que é quem entende como é a infra-estrutura de armazenamento de dados. Para ele também não importa se o Repositório é uma classe ou uma interface, o que importa é que os objetos do domain model deverão dempre lidar com busca e persistência de objetos usando a interface do Repository, que tem o compromisso de ser mais semântica do que a do DAO.
 
 ## Referências
 
@@ -157,16 +160,3 @@ O Repository é uma camada de negócio da aplicação, responsável por manter e
 
 
 * [https://thinkinginobjects.com/2012/08/26/dont-use-dao-use-repository/](https://thinkinginobjects.com/2012/08/26/dont-use-dao-use-repository/)
-
-
-
-
-
-
-
-
-
-
-
-
-
