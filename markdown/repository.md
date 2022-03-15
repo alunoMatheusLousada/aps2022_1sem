@@ -129,24 +129,24 @@ Outro problema é que algumas das operações (métodos) de DAOs e Repositórios
 Um ponto importantíssimo para entender que a diferença não é apenas acidental é entender a origem dos padrões. 
 <!--Enquanto DAO foi pensado principalmente para abstrair fontes de dados genéricas, o contexto em que Repository foi concebido -->
 
-DAOs podem persistir e recuperar objetos ou, em sistemas mais simples, das próprias entidades do sistema. Repositórios sempre fazem referência a um entidade de domínio da aplicação, Claro que você pode estender o conceito para outras coisas, mas não deve ser a norma.
+**DAOs** podem persistir e recuperar objetos ou, em sistemas mais simples, das próprias entidades do sistema. **Repositórios** sempre fazem referência a um entidade de domínio da aplicação, Claro que você pode estender o conceito para outras coisas, mas não deve ser a norma.
 
-DAOs geralmente abstraem um query do banco de dados. Repositórios podem necessitar de várias queries para compor uma entidade.
+**DAOs** geralmente abstraem um query do banco de dados. **Repositórios** podem necessitar de várias queries para compor uma entidade.
 
-DAOs não gerenciam transações. Repositórios podem gerenciar ou pelo menos exigir a execução dentro de uma transação.
+**DAOs** não gerenciam transações. **Repositórios** podem gerenciar ou pelo menos exigir a execução dentro de uma transação.
 
-DAOs acessam diretamente a fonte de dados. Repositórios geralmente usam algum outro mecanismo para persistir dados, tal como um framework ORM ou os próprios DAOs.
+**DAOs** acessam diretamente a fonte de dados. **Repositórios** geralmente usam algum outro mecanismo para persistir dados, tal como um framework ORM ou os próprios DAOs.
 
-O Repository é uma camada de negócio da aplicação, responsável por manter e persistir os objetos de Modelo, enquanto isto não envolver a infra. Quando tratar de infra, esse trabalho é delegado ao DAO ou diretamente ao framework, caso este seja bem abstraído.
+O **Repository** é uma camada de negócio da aplicação, responsável por manter e persistir os objetos de Modelo, enquanto isto não envolver a infra. Quando tratar de infra, esse trabalho é delegado ao DAO ou diretamente ao framework, caso este seja bem abstraído.
 
-O problema é que as pessoas confundem esses dois conceitos porque realmente são bem parecidos. Na maioria dos casos você irá precisar dos dois, porque o modelo de domínio fará buscas por objetos em um Repository que por sua vez delegará para o DAO, que é quem entende como é a infra-estrutura de armazenamento de dados. Para ele também não importa se o Repositório é uma classe ou uma interface, o que importa é que os objetos do domain model deverão dempre lidar com busca e persistência de objetos usando a interface do Repository, que tem o compromisso de ser mais semântica do que a do DAO.
+O problema é que as pessoas confundem esses dois conceitos porque realmente são bem parecidos. Na maioria dos casos você irá precisar dos dois, porque o modelo de domínio fará buscas por objetos em um **Repository** que por sua vez delegará para o **DAO**, que é quem entende como é a infra-estrutura de armazenamento de dados. Para ele também não importa se o **Repositório** é uma classe ou uma interface, o que importa é que os objetos do domain model deverão dempre lidar com busca e persistência de objetos usando a interface do **Repository**, que tem o compromisso de ser mais semântica do que a do **DAO**.
 
 
 ### Quando usar os padrões
 
-O uso de DAOs é praticamente uma necessidade se você não usa frameworks ORMs, mesmo que você use outra nomeclatura, afinal você precisa de um lugar para colocar o código SQL.
+O uso de **DAOs** é praticamente uma necessidade se você não usa frameworks ORMs, mesmo que você use outra nomeclatura, afinal você precisa de um lugar para colocar o código SQL.
 
-Repositórios, por outro lado, são interessantes para aplicações um pouco maiores, onde o custo de adicionar mais uma camada de abstração é justificado pelo reuso em outros componentes, módulos e camadas.
+**Repositórios**, por outro lado, são interessantes para aplicações um pouco maiores, onde o custo de adicionar mais uma camada de abstração é justificado pelo reuso em outros componentes, módulos e camadas.
 
 <!--
 Como já descrito acima, quando se trabalha com um framework ORM, faz sentido criar repositórios para abstrair o código específico do framework. 
